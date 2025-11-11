@@ -26,29 +26,29 @@ class _todoAPPProjectState extends State<todoAPPProject> {
         ),
       ),
       body: Consumer<TodoProvider>(
-        builder: (context, TodoProvider, child) {
-          return TodoProvider.taskList.isEmpty
+        builder: (context, todoProvider, child) {
+          return todoProvider.taskList.isEmpty
               ? Center(child: Text("No tasks sdded yet"))
               : ListView.builder(
-                  itemCount: TodoProvider.taskList.length,
+                  itemCount: todoProvider.taskList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: Checkbox(
-                        value: TodoProvider.taskList[index]['isDone'],
+                        value: todoProvider.taskList[index]['isDone'],
                         onChanged: (value) {
-                          TodoProvider.toggleTask(index);
+                          todoProvider.toggleTask(index);
                         },
                       ),
                       title: Text(
-                        TodoProvider.taskList[index]['task'],
+                        todoProvider.taskList[index]['task'],
                         style: TextStyle(
-                          decoration: TodoProvider.taskList[index]['isDone']
+                          decoration: todoProvider.taskList[index]['isDone']
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
                         ),
                       ),
                       trailing: IconButton(onPressed: (){
-                        TodoProvider.removeTask(index);
+                        todoProvider.removeTask(index);
                       }, icon: Icon(Icons.delete)),
                     );
                   },
@@ -81,7 +81,7 @@ class _todoAPPProjectState extends State<todoAPPProject> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              if (taskController.text.isEmpty) {
+                              if (taskController.text.isNotEmpty) {
                                 Provider.of<TodoProvider>(
                                   context,
                                   listen: false,
